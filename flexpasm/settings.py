@@ -3,7 +3,7 @@ from dataclasses import dataclass
 
 
 class MnemonicSyntax(Enum):
-	INTEL = 'intel'
+	INTEL = "intel"
 
 
 @dataclass
@@ -12,4 +12,4 @@ class Settings:
 	author: str
 	filename: str
 	mnemonix_syntax: MnemonicSyntax = MnemonicSyntax.INTEL
-	indentation: str = '    '
+	indentation: str = "	"

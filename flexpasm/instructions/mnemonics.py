@@ -12,12 +12,12 @@ class MovMnemonic:
 		self.dest = dest
 		self.source = source
 
-	def generate(self, syntax: MnemonicSyntax, indentation: str = ''):
+	def generate(self, syntax: MnemonicSyntax, indentation: str = ""):
 		if syntax == MnemonicSyntax.INTEL:
-			return f'{indentation}MOV {str(self.dest)} {str(self.source)}'
+			return f"{indentation}MOV {str(self.dest)} {str(self.source)}"
 
 	def comment(self) -> str:
-		return f'Loading {str(self.source)} value into {str(self.dest)} register.'
+		return f"Loading {str(self.source)} value into {str(self.dest)} register."
 
 
 class AddMnemonic(BaseMnemonic):
@@ -30,10 +30,9 @@ class AddMnemonic(BaseMnemonic):
 		self.dest = dest
 		self.source = source
 
-	def generate(self, syntax: MnemonicSyntax, indentation: str = '') -> str:
+	def generate(self, syntax: MnemonicSyntax, indentation: str = "") -> str:
 		if syntax == MnemonicSyntax.INTEL:
-			return f'{indentation}ADD {str(self.dest)}, {str(self.source)}'
+			return f"{indentation}ADD {str(self.dest)}, {str(self.source)}"
 
 	def comment(self) -> str:
-		return f'Adding the {str(self.source)} value to the {str(self.dest)} register'
-
+		return f"Adding the {str(self.source)} value to the {str(self.dest)} register"

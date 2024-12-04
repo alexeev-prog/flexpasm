@@ -4,15 +4,17 @@ from flexpasm.templates import PrintStringTemplate
 
 
 def main():
-	settings = Settings(title='Example ASM Program', author='alexeev-prog', filename='example.asm')
+	settings = Settings(
+		title="Example ASM Program", author="alexeev-prog", filename="example.asm"
+	)
 	asmprogram = ASMProgram(settings)
 
-	pst = PrintStringTemplate('Hello, World!')
+	pst = PrintStringTemplate("Hello, World!")
 
 	asmprogram.add_template(pst)
 
 	asmprogram.save_code()
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
 	main()
