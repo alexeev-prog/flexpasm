@@ -35,8 +35,34 @@ pip install flexpasm
 
 Once installed, you can start using the library in your Python projects. Check out the [documentation](./docs/en/index.md) for detailed usage examples and API reference.
 
-
 ## Basic Usage
+"Hello World":
+
+```python
+from flexpasm.program import ASMProgram
+from flexpasm.settings import Settings
+from flexpasm.templates import PrintStringTemplate
+
+
+def main():
+  settings = Settings(
+    title="Example ASM Program",
+    author="alexeev-prog",
+    filename="example.asm",
+    mode="32",
+  )
+  asmprogram = ASMProgram(settings)
+
+  pst = PrintStringTemplate("Hello, World!")
+
+  asmprogram.add_template(pst)
+
+  asmprogram.save_code()
+
+
+if __name__ == "__main__":
+  main()
+```
 
 ## Check Other My Projects
 
