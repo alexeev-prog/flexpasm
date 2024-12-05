@@ -3,7 +3,7 @@ from abc import ABC, abstractmethod
 
 class BaseMnemonic(ABC):
 	@abstractmethod
-	def generate(self, syntax: str, indentation: str = "") -> str:
+	def generate(self, syntax: str) -> str:
 		raise NotImplementedError
 
 	@abstractmethod

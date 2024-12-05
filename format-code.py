@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 # Python program to format python code
 import os
-import sys
 import subprocess
+import sys
 
 # Define color codes for output
 RED = "\033[31m"
@@ -92,12 +92,8 @@ def convert_file(file_path, tab_size, conversion_type):
 
 
 def main():
-	# Set the current working directory for scanning c/c++ sources (including
-	# header files) and apply the clang formatting
-	# Please note "-style" is for standard style options
-	# and "-i" is in-place editing
-
 	os.system("black .")
+	os.system("isort .")
 
 	if len(sys.argv) > 1:
 		print(f"{BOLD}Format {sys.argv[1]}{NC}")
