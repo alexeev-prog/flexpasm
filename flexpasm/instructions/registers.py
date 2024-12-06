@@ -1,6 +1,7 @@
 from enum import Enum
 from typing import Union
 
+
 from flexpasm.instructions.base import BaseRegister
 
 

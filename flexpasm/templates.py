@@ -1,12 +1,12 @@
 from abc import ABC, abstractmethod
 
-from flexpasm.instructions.mnemonics import IntMnemonic, MovMnemonic, XorMnemonic
+
 from flexpasm.instructions.registers import get_registers
-from flexpasm.instructions.segments import (
-	ReadableExecutableSegment,
-	ReadableWriteableSegment,
-)
-from flexpasm.settings import LinuxInterrupts, MnemonicSyntax
+from flexpasm.instructions.segments import ReadableWriteableSegment
+from flexpasm.mnemonics.data import MovMnemonic
+from flexpasm.mnemonics.io import IntMnemonic
+from flexpasm.mnemonics.logical import XorMnemonic
+from flexpasm.settings import LinuxInterrupts
 
 
 class MnemonicTemplate(ABC):
@@ -20,46 +20,38 @@ class MnemonicTemplate(ABC):
 
 
 class PrintStringTemplate(MnemonicTemplate):
-	def __init__(self, string: str, entry: str = "start"):
+	def __init__(self, string: str, var: str = "msg", entry: str = "print_string"):
 		self.string = string
+		self.var = var
 		self.entry = entry
 
-	def generate(
-		self, mode: str, syntax: MnemonicSyntax, indentation: str = "	 "
-	) -> str:
+	def generate(self, mode: str, indentation: str = "\t") -> str:
 		comment = self.comment()
 
 		regs = get_registers(mode)
 
-		rec = ReadableExecutableSegment(self.entry)
-		rws = ReadableWriteableSegment()
+		rws = ReadableWriteableSegment(skip_title=True)
 
-		if syntax == MnemonicSyntax.INTEL:
-			rec.set_commands_for_label(
-				self.entry,
-				[
-					MovMnemonic(regs.AX, 4).generate(syntax),
-					MovMnemonic(regs.CX, "msg").generate(syntax),
-					MovMnemonic(regs.DX, "msg_size").generate(syntax),
-					IntMnemonic(LinuxInterrupts.SYSCALL).generate(syntax),
-					MovMnemonic(regs.AX, 1).generate(syntax),
-					XorMnemonic(regs.BX, regs.BX).generate(syntax),
-					IntMnemonic(LinuxInterrupts.SYSCALL).generate(syntax),
-				],
-				indentation=indentation,
-			)
+		rec = [
+			MovMnemonic(regs.AX, 4).generate(),
+			MovMnemonic(regs.CX, f"{self.var}").generate(),
+			MovMnemonic(regs.DX, f"{self.var}_size").generate(),
+			IntMnemonic(LinuxInterrupts.SYSCALL).generate(),
+			MovMnemonic(regs.AX, 1).generate(),
+			XorMnemonic(regs.BX, regs.BX).generate(),
+			IntMnemonic(LinuxInterrupts.SYSCALL).generate(),
+		]
 
-			rws.add_string("msg", self.string)
+		rws.add_string(f"{self.var}", self.string)
 
-			title = f"; Using PrintStringTemplate: {comment} ;"
+		title = f"; Using PrintStringTemplate: {comment} ;"
 
-			return (
-				f"\n{';' * len(title)}\n{title}\n{';' * len(title)}\n"
-				f"\n"
-				f"{rec.generate()}\n"
-				"\n"
-				f"{rws.generate()}\n"
-			)
+		text = (
+			f"{';' * len(title)}\n{title}\n{';' * len(title)}\n\n{"\n".join(rec)}",
+			f"{rws.generate()}",
+		)
+
+		return text
 
 	def comment(self) -> str:
 		return f"Printing the string '{self.string}' to stdout"
