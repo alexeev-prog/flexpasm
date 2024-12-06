@@ -16,30 +16,30 @@ start:                                          ; Label start with 1 commands:
 segment readable executable
 
 print_string:                                   ; Segment readable executable in FASM is a directive for defining a section of code with readable and executable attributes.
-	;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-	; Using PrintStringTemplate: Printing the string 'Hello, World!' to stdout ;
-	;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-	
-	MOV EAX, 4                                      ; Loading 4 value into EAX register.
-	MOV ECX, msg                                    ; Loading msg value into ECX register.
-	MOV EDX, msg_size                               ; Loading msg_size value into EDX register.
-	INT 128                                         ; Call software interrupt 128: SYSCALL
-	MOV EAX, 1                                      ; Loading 1 value into EAX register.
-	MOV EBX, EBX                                    ; Zeroing the EBX register using XOR
-	INT 128                                         ; Call software interrupt 128: SYSCALL
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; Using PrintStringTemplate: Printing the string 'Hello, World!' to stdout ;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+MOV EAX, 4                                      ; Loading 4 value into EAX register.
+MOV ECX, msg                                    ; Loading msg value into ECX register.
+MOV EDX, msg_size                               ; Loading msg_size value into EDX register.
+INT 128                                         ; Call software interrupt 128: SYSCALL
+MOV EAX, 1                                      ; Loading 1 value into EAX register.
+MOV EBX, EBX                                    ; Zeroing the EBX register using XOR
+INT 128                                         ; Call software interrupt 128: SYSCALL
 
 print_string2:                                  ; Segment readable executable in FASM is a directive for defining a section of code with readable and executable attributes.
-	;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-	; Using PrintStringTemplate: Printing the string 'Hello, World!' to stdout ;
-	;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-	
-	MOV EAX, 4                                      ; Loading 4 value into EAX register.
-	MOV ECX, msg2                                   ; Loading msg2 value into ECX register.
-	MOV EDX, msg2_size                              ; Loading msg2_size value into EDX register.
-	INT 128                                         ; Call software interrupt 128: SYSCALL
-	MOV EAX, 1                                      ; Loading 1 value into EAX register.
-	MOV EBX, EBX                                    ; Zeroing the EBX register using XOR
-	INT 128                                         ; Call software interrupt 128: SYSCALL
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; Using PrintStringTemplate: Printing the string 'Hello, World!' to stdout ;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+MOV EAX, 4                                      ; Loading 4 value into EAX register.
+MOV ECX, msg2                                   ; Loading msg2 value into ECX register.
+MOV EDX, msg2_size                              ; Loading msg2_size value into EDX register.
+INT 128                                         ; Call software interrupt 128: SYSCALL
+MOV EAX, 1                                      ; Loading 1 value into EAX register.
+MOV EBX, EBX                                    ; Zeroing the EBX register using XOR
+INT 128                                         ; Call software interrupt 128: SYSCALL
 
 
 ;; Segment readable writeable in FASM is a definition of a segment of program data codes, where the attributes readable (the contents of the segment can be read) and writeable (program commands can both read codes and change their values) are specified for it.

@@ -67,7 +67,7 @@ class ASMProgram:
 	def add_label(self, label: Label):
 		print(f"[bold]Add label: {label.entry}[/bold]")
 		self._code.append(f";; Label Entry {label.entry}")
-		self._code.append(f"{label.generate()}\nf")
+		self._code.append(f"{label.generate()}\n")
 
 	def add_instruction(self, instruction: str, indentation_level: int = 0):
 		print(f"[bold]Add instruction: {instruction}[/bold]")

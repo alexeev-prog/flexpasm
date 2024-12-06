@@ -1,3 +1,15 @@
+commit a8e8b2c77236ca2649b301f640ed99fc21863574
+Author: alexeev-prog <alexeev.dev@mail.ru>
+Date:   Sat Dec 7 00:48:16 2024 +0700
+
+    improve mnemonics structure, improve templates and segments, add color highlight
+
+commit 06a8bcdce69244a027f1b5561bd06f1279168170
+Author: alexeev-prog <alexeev.dev@mail.ru>
+Date:   Thu Dec 5 23:48:11 2024 +0700
+
+    improve docs
+
 commit 098947daf1add7002b3247f606cffb80c26fa974
 Author: alexeev-prog <alexeev.dev@mail.ru>
 Date:   Thu Dec 5 23:46:46 2024 +0700

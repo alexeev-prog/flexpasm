@@ -1,6 +1,5 @@
 from abc import ABC, abstractmethod
 
-
 from flexpasm.mnemonics.base import BaseMnemonic
 from flexpasm.settings import MAX_MESSAGE_LENGTH
 
@@ -68,8 +67,16 @@ class ReadableExecutableSegment(BaseSegment):
 		return self._code
 
 	def set_commands_for_label(
-		self, label: str, commands: list, indentation: str = "\t"
+		self,
+		label: str,
+		commands: list,
+		indentation_level: int = 0,
 	):
+		if indentation_level == 0:
+			indentation = ""
+		else:
+			indentation = "\t" * indentation_level
+
 		result = ""
 
 		for command in commands:

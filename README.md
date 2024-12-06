@@ -72,6 +72,13 @@ if __name__ == "__main__":
   main()
 ```
 
+```bash
+$ fasm example.asm example
+$ ./example
+
+ Hello, World!
+```
+
 ## Check Other My Projects
 
  + [SQLSymphony](https://github.com/alexeev-prog/SQLSymphony) - simple and fast ORM in sqlite (and you can add other DBMS)

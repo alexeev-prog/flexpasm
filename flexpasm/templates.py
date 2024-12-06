@@ -1,6 +1,5 @@
 from abc import ABC, abstractmethod
 
-
 from flexpasm.instructions.registers import get_registers
 from flexpasm.instructions.segments import ReadableWriteableSegment
 from flexpasm.mnemonics.data import MovMnemonic
@@ -25,7 +24,12 @@ class PrintStringTemplate(MnemonicTemplate):
 		self.var = var
 		self.entry = entry
 
-	def generate(self, mode: str, indentation: str = "\t") -> str:
+	def generate(self, mode: str, indentation_level: int = 0) -> str:
+		if indentation_level == 0:
+			indentation = ""
+		else:
+			indentation = "\t" * indentation_level
+
 		comment = self.comment()
 
 		regs = get_registers(mode)

@@ -2,7 +2,6 @@ from abc import ABC, abstractmethod
 from enum import Enum
 from typing import Union
 
-
 from flexpasm.instructions.base import BaseRegister
 from flexpasm.rich_highlighter import Highlighter
 from flexpasm.settings import MAX_MESSAGE_LENGTH
