@@ -27,7 +27,7 @@
         <img src="https://img.shields.io/github/last-commit/alexeev-prog/flexpasm?style=for-the-badge">
 </p>
 
-![](https://github.com/alexeev-prog/pyEchoNext/blob/main/docs/logo.jpg)
+![](./docs/logo.jpg)
 
 flexpasm is a library for assembly language metaprogramming (FASM LINUX) via OOP, object relations. It also includes several useful tools for working with assembly code
 
