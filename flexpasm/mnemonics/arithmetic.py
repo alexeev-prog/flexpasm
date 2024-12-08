@@ -28,3 +28,53 @@ class SubMnemonic(_DefaultMnemonic):
 
 	def comment(self) -> str:
 		return f"Substracting the {str(self.source)} value to the {str(self.dest)} register"
+
+
+class DivMnemonic(_DefaultMnemonic):
+	"""
+	The ASM DIV mnemonic is a division instruction. It divise the source operand from the destination
+	operand and replaces the destination with the result.
+	"""
+
+	def __init__(self, dest: BaseRegister, source: Union[BaseRegister, str, int]):
+		super().__init__("DIV", dest, source)
+
+	def comment(self) -> str:
+		return f"Divising the {str(self.source)} value to the {str(self.dest)} register"
+
+
+class MulMnemonic(_DefaultMnemonic):
+	"""
+	The ASM MUL mnemonic is a multiplication instruction. It multiplicates the source operand from the destination
+	operand and replaces the destination with the result.
+	"""
+
+	def __init__(self, dest: BaseRegister, source: Union[BaseRegister, str, int]):
+		super().__init__("MUL", dest, source)
+
+	def comment(self) -> str:
+		return f"Multiplication the {str(self.source)} value to the {str(self.dest)} register"
+
+
+class IncMnemonic(_DefaultMnemonic):
+	"""
+	The ASM INC mnemonic is a increment instruction. It increments the register.
+	"""
+
+	def __init__(self, dest: BaseRegister):
+		super().__init__("INC", dest)
+
+	def comment(self) -> str:
+		return f"Increment the {str(self.dest)}"
+
+
+class DecMnemonic(_DefaultMnemonic):
+	"""
+	The ASM DEC mnemonic is a decrement instruction. It decrements the register.
+	"""
+
+	def __init__(self, dest: BaseRegister):
+		super().__init__("DEC", dest)
+
+	def comment(self) -> str:
+		return f"Decrement the {str(self.dest)}"

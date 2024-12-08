@@ -10,11 +10,11 @@ class _DefaultMnemonic(BaseMnemonic):
 	def __init__(
 		self,
 		mnemonic_name: str,
-		dest: BaseRegister = None,
+		dest: Union[BaseRegister, str, int] = None,
 		source: Union[BaseRegister, str, int] = None,
 	):
 		self.mnemonic_name = mnemonic_name
-		self.dest = dest.value if dest is not None else None
+		self.dest = dest if not isinstance(dest, Enum) else dest.value
 		self.source = source if not isinstance(source, Enum) else source.value
 
 	def generate(self, indentation: str = ""):

@@ -248,6 +248,104 @@ We welcome contributions from the community! If you'd like to help improve pyEch
 
 ## Specifications
 
+### Registers
+Code from library:
+
+```
+class Registers16(Enum):
+    AX = Register16("AX")
+    BX = Register16("BX")
+    CX = Register16("CX")
+    DX = Register16("DX")
+    SP = Register16("SP")
+    BP = Register16("BP")
+    SI = Register16("SI")
+    DI = Register16("DI")
+
+    r10 = Register16("10")
+    r8 = Register16("8")
+    r9 = Register16("9")
+
+
+class Registers32(Enum):
+    AX = Register32("EAX")
+    BX = Register32("EBX")
+    CX = Register32("ECX")
+    DX = Register32("EDX")
+    SP = Register32("ESP")
+    BP = Register32("EBP")
+    SI = Register32("ESI")
+    DI = Register32("EDI")
+
+    r10 = Register32("e10")
+    r8 = Register32("e8")
+    r9 = Register32("e9")
+
+
+class Registers64(Enum):
+    AX = Register64("RAX")
+    BX = Register64("RBX")
+    CX = Register64("RCX")
+    DX = Register64("RDX")
+    SP = Register64("RSP")
+    BP = Register64("RBP")
+    SI = Register64("RSI")
+    DI = Register64("RDI")
+
+    r10 = Register64("r10")
+    r8 = Register64("r8")
+    r9 = Register64("r9")
+
+
+def get_registers(mode: str) -> Union[Register16, Register32, Registers64]:
+    if mode == "16":
+        return Registers16
+    elif mode == "32":
+        return Registers32
+    elif mode == "64":
+        return Registers64
+```
+
+### BaseMnemonic
+BaseMnemonic is the base abstract assembler mnemonic class. Assembly language mnemonics are a fundamental part of any program.
+
+Module: `flexpasm.mnemonics`
+
+Supported Mnemonics:
+
+```
+ + MovMnemonic
+ + IntMnemonic
+ + XorMnemonic
+ + AddMnemonic
+ + SubMnemonic
+ + JmpMnemonic
+ + IncMnemonic
+ + MulMnemonic
+ + DecMnemonic
+ + ShrMnemonic
+ + RorMnemonic
+ + RolMnemonic
+ + AndMnemonic
+ + OrMnemonic
+ + NotMnemonic
+ + DivMnemonic
+ + JeMnemonic
+ + JneMnemonic
+ + JgMnemonic
+ + JLMnemonic
+ + JgeMnemonic
+ + JleMnemonic
+ + CallMnemonic
+ + RetMnemonic
+ + PushMnemonic
+ + PopMnemonic
+ + XchgMnemonic
+ + SwapMnemonic
+ + IretMnemonic
+ + CmpMnemonic
+```
+
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 ## License

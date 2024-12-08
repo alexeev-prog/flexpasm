@@ -1,3 +1,15 @@
+commit 08e5ef834514d5846586893f6ebe1506afa52cf2
+Author: alexeev-prog <alexeev.dev@mail.ru>
+Date:   Sun Dec 8 18:45:27 2024 +0700
+
+    docs: fix docs
+
+commit 127cc9737ed38e92acebf821314d1f5bb0729669
+Author: alexeev-prog <alexeev.dev@mail.ru>
+Date:   Sun Dec 8 18:41:42 2024 +0700
+
+    feat/docs: improve project architecture, improve templates, improve docs
+
 commit e84d9ff019909105a9769659de96400a6fd1cd1d
 Author: alexeev-prog <alexeev.dev@mail.ru>
 Date:   Sat Dec 7 00:56:01 2024 +0700

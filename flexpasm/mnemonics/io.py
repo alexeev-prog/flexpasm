@@ -30,3 +30,20 @@ class IntMnemonic(_DefaultMnemonic):
 			if self.additional_comments is None
 			else f"Call software interrupt {self.interrupt_number}: {self.additional_comments}"
 		)
+
+
+class IretMnemonic(_DefaultMnemonic):
+	"""
+	Return from interrupt
+	"""
+
+	def __init__(self):
+		super().__init__("IRET")
+
+	def generate(self, indentation: str = ""):
+		msg = "IRET"
+		Highlighter.highlight(f"{msg.ljust(MAX_MESSAGE_LENGTH)}; {self.comment()}")
+		return f"{indentation}{msg.ljust(MAX_MESSAGE_LENGTH)}; {self.comment()}"
+
+	def comment(self) -> str:
+		return "Return from interrupt"
