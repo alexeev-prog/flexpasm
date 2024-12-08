@@ -1,6 +1,6 @@
 from typing import Union
 
-from flexpasm.instructions.base import BaseRegister
+from flexpasm.base import BaseRegister
 from flexpasm.mnemonics.base import _DefaultMnemonic
 
 

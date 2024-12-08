@@ -1,7 +1,7 @@
 from enum import Enum
 from typing import Union
 
-from flexpasm.instructions.base import BaseRegister
+from flexpasm.base import BaseRegister
 
 
 class Register16(BaseRegister):
@@ -38,6 +38,10 @@ class Registers16(Enum):
 	SI = Register16("SI")
 	DI = Register16("DI")
 
+	r10 = Register16("10")
+	r8 = Register16("8")
+	r9 = Register16("9")
+
 
 class Registers32(Enum):
 	AX = Register32("EAX")
@@ -49,6 +53,10 @@ class Registers32(Enum):
 	SI = Register32("ESI")
 	DI = Register32("EDI")
 
+	r10 = Register32("e10")
+	r8 = Register32("e8")
+	r9 = Register32("e9")
+
 
 class Registers64(Enum):
 	AX = Register64("RAX")
@@ -59,6 +67,10 @@ class Registers64(Enum):
 	BP = Register64("RBP")
 	SI = Register64("RSI")
 	DI = Register64("RDI")
+
+	r10 = Register64("r10")
+	r8 = Register64("r8")
+	r9 = Register64("r9")
 
 
 def get_registers(mode: str) -> Union[Register16, Register32, Registers64]:

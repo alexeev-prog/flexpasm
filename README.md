@@ -1,29 +1,47 @@
 # flexpasm
 <a id="readme-top"></a> 
 
-<div align="center">  
-  <p align="center">
-    Python library for writing assembly code through object abstractions. For Linux FASM.
-    <br />
-    <a href="./docs/en/index.md"><strong>Explore the docs »</strong></a>
-    <br />
-    <br />
-    <a href="#getting-started">Getting Started</a>
-    ·
-    <a href="#usage-examples">Basic Usage</a>
-    ·
-    <a href="https://github.com/alexeev-prog/flexpasm/blob/main/LICENSE">License</a>
-  </p>
+<div align="center">    
+    <p align="center">
+        Python library for writing assembly code through object abstractions. For Linux FASM.
+        <br />
+        <a href="./docs/en/index.md"><strong>Explore the docs »</strong></a>
+        <br />
+        <br />
+        <a href="#getting-started">Getting Started</a>
+        ·
+        <a href="#usage-examples">Basic Usage</a>
+        ·
+        <a href="#specifications">Specifications</a>
+        ·
+        <a href="https://github.com/alexeev-prog/flexpasm/blob/main/LICENSE">License</a>
+    </p>
 </div>
 <br>
 <p align="center">
-    <img src="https://img.shields.io/github/languages/top/alexeev-prog/flexpasm?style=for-the-badge">
-    <img src="https://img.shields.io/github/languages/count/alexeev-prog/flexpasm?style=for-the-badge">
-    <img src="https://img.shields.io/github/license/alexeev-prog/flexpasm?style=for-the-badge">
-    <img src="https://img.shields.io/github/stars/alexeev-prog/flexpasm?style=for-the-badge">
-    <img src="https://img.shields.io/github/issues/alexeev-prog/flexpasm?style=for-the-badge">
-    <img src="https://img.shields.io/github/last-commit/alexeev-prog/flexpasm?style=for-the-badge">
+        <img src="https://img.shields.io/github/languages/top/alexeev-prog/flexpasm?style=for-the-badge">
+        <img src="https://img.shields.io/github/languages/count/alexeev-prog/flexpasm?style=for-the-badge">
+        <img src="https://img.shields.io/github/license/alexeev-prog/flexpasm?style=for-the-badge">
+        <img src="https://img.shields.io/github/stars/alexeev-prog/flexpasm?style=for-the-badge">
+        <img src="https://img.shields.io/github/issues/alexeev-prog/flexpasm?style=for-the-badge">
+        <img src="https://img.shields.io/github/last-commit/alexeev-prog/flexpasm?style=for-the-badge">
 </p>
+
+![](https://github.com/alexeev-prog/pyEchoNext/blob/main/docs/logo.jpg)
+
+flexpasm is a library for assembly language metaprogramming (FASM LINUX) via OOP, object relations. It also includes several useful tools for working with assembly code
+
+ > Python library for writing assembly code through object abstractions. For Linux FASM.
+
+## Check Other My Projects
+
+ + [SQLSymphony](https://github.com/alexeev-prog/SQLSymphony) - simple and fast ORM in sqlite (and you can add other DBMS)
+ + [Burn-Build](https://github.com/alexeev-prog/burn-build) - simple and fast build system written in python for C/C++ and other projects. With multiprocessing, project creation and caches!
+ + [OptiArch](https://github.com/alexeev-prog/optiarch) - shell script for fast optimization of Arch Linux
+ + [libnumerixpp](https://github.com/alexeev-prog/libnumerixpp) - a Powerful C++ Library for High-Performance Numerical Computing
+ + [pycolor-palette](https://github.com/alexeev-prog/pycolor-palette) - display beautiful log messages, logging, debugging.
+ + [shegang](https://github.com/alexeev-prog/shegang) - powerful command interpreter (shell) for linux written in C
+ + [aioconsole](https://github.com/alexeev-prog/aioconsole) - simple python library for creating async CLI applications
 
 ## Getting Started
 
@@ -36,56 +54,203 @@ pip install flexpasm
 Once installed, you can start using the library in your Python projects. Check out the [documentation](./docs/en/index.md) for detailed usage examples and API reference.
 
 ## Basic Usage
-"Hello World":
+
+### Using templates
 
 ```python
 from flexpasm.instructions.segments import Label
+from flexpasm.mnemonics import JmpMnemonic
 from flexpasm.program import ASMProgram
 from flexpasm.settings import Settings
 from flexpasm.templates import PrintStringTemplate
-from flexpasm.mnemonics.flow import JmpMnemonic
 
 
 def main():
-  settings = Settings(
-    title="Example ASM Program",
-    author="alexeev-prog",
-    filename="example.asm",
-    mode="32",
-  )
-  asmprogram = ASMProgram(settings)
+    settings = Settings(
+        title="Example ASM Program with Templates",
+        author="alexeev-prog",
+        filename="example_templates.asm",
+        mode="32",
+    )
+    asmprogram = ASMProgram(settings, __name__)
 
-  pst = PrintStringTemplate("Hello, World!")
-  pst2 = PrintStringTemplate("Hello, World!", 'msg2', 'print_string2')
-  start_lbl = Label("start")
+    pst = PrintStringTemplate("Hello, World!")
+    pst2 = PrintStringTemplate("Hello, World!", "msg2", "print_string2")
+    start_lbl = Label("start")
 
-  start_lbl.add_command(JmpMnemonic("print_string"), 1, comment='Jump to print strint template')
+    start_lbl.add_instruction(
+        JmpMnemonic("print_string"), 1, comment="Jump to print strint template"
+    )
 
-  asmprogram.add_label(start_lbl)
-  asmprogram.add_template(pst)
-  asmprogram.add_template(pst2)
+    asmprogram.add_label(start_lbl)
+    asmprogram.add_template(pst)
+    asmprogram.add_template(pst2)
 
-  asmprogram.save_code()
+    asmprogram.save_code()
 
 
 if __name__ == "__main__":
-  main()
+    main()
+```
+
+```bash
+$ fasm example_templates.asm example_templates
+$ ./example_templates
+
+Hello, World!
+```
+
+ASM Code:
+
+```asm
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Author: alexeev-prog                                                                                               ;;
+;; Example ASM Program with Templates                                                                                 ;;
+;; Program generated by FLEXPASM (github.com/alexeev-pro/flexpasm)                                                    ;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+format ELF executable 3;                        ; ELF EXECUTABLE
+entry start                                     ; Set Start Entry
+
+
+;; Segment readable executable in FASM is a directive for defining a section of code with readable and executable attributes.
+segment readable executable
+
+start:                                          ; Label start with 1 commands
+    JMP print_string                                ; Unconditional jump to label print_string; Jump to print strint template
+
+print_string:                                   ; Label print_string with 7 commands
+    MOV EAX, 4                                      ; Loading 4 value into EAX register.
+    MOV ECX, msg                                    ; Loading msg value into ECX register.
+    MOV EDX, msg_size                               ; Loading msg_size value into EDX register.
+    INT 128                                         ; Call software interrupt 128: SYSCALL
+    MOV EAX, 1                                      ; Loading 1 value into EAX register.
+    MOV EBX, EBX                                    ; Exclusive OR operation EBX and EBX using XOR
+    INT 128                                         ; Call software interrupt 128: SYSCALL
+
+print_string2:                                  ; Label print_string2 with 7 commands
+    MOV EAX, 4                                      ; Loading 4 value into EAX register.
+    MOV ECX, msg2                                   ; Loading msg2 value into ECX register.
+    MOV EDX, msg2_size                              ; Loading msg2_size value into EDX register.
+    INT 128                                         ; Call software interrupt 128: SYSCALL
+    MOV EAX, 1                                      ; Loading 1 value into EAX register.
+    MOV EBX, EBX                                    ; Exclusive OR operation EBX and EBX using XOR
+    INT 128                                         ; Call software interrupt 128: SYSCALL
+
+
+;; Segment readable writeable in FASM is a definition of a segment of program data codes, where the attributes readable (the contents of the segment can be read) and writeable (program commands can both read codes and change their values) are specified for it.
+segment readable writeable
+
+message db 'Hello, World!', 0xA                 ; Var message (string)
+message_size = $-message                        ; Var message (string) length
+
+message db 'Hello, World!', 0xA                 ; Var message (string)
+message_size = $-message                        ; Var message (string) length
+```
+
+### Simple
+
+```python
+from flexpasm import ASMProgram
+from flexpasm.constants import LinuxInterrupts
+from flexpasm.instructions.registers import get_registers
+from flexpasm.instructions.segments import Label
+from flexpasm.mnemonics import IntMnemonic, MovMnemonic, XorMnemonic
+from flexpasm.settings import Settings
+
+
+def main():
+    settings = Settings(
+        title="Example ASM Program",
+        author="alexeev-prog",
+        filename="example.asm",
+        mode="64",
+    )
+    asmprogram = ASMProgram(settings, __name__)
+    regs = get_registers(settings.mode)
+
+    start_lbl = Label("start")
+
+    start_lbl.add_instruction(MovMnemonic(regs.AX, 4))
+    start_lbl.add_instruction(MovMnemonic(regs.CX, "message"))
+    start_lbl.add_instruction(MovMnemonic(regs.DX, "message_size"))
+    start_lbl.add_instruction(IntMnemonic(LinuxInterrupts.SYSCALL))
+    start_lbl.add_instruction(MovMnemonic(regs.AX, 1))
+    start_lbl.add_instruction(XorMnemonic(regs.BX, regs.BX))
+    start_lbl.add_instruction(IntMnemonic(LinuxInterrupts.SYSCALL))
+
+    asmprogram.add_label(start_lbl)
+    asmprogram.main_rws.add_string("message", "Hello, World!")
+
+    asmprogram.save_code()
+    # asmprogram.restore_backup()
+
+
+if __name__ == "__main__":
+    main()
 ```
 
 ```bash
 $ fasm example.asm example
 $ ./example
 
- Hello, World!
+Hello, World!
 ```
 
-## Check Other My Projects
+Generated ASM code:
 
- + [SQLSymphony](https://github.com/alexeev-prog/SQLSymphony) - simple and fast ORM in sqlite (and you can add other DBMS)
- + [Burn-Build](https://github.com/alexeev-prog/burn-build) - simple and fast build system written in python for C/C++ and other projects. With multiprocessing, project creation and caches!
- + [OptiArch](https://github.com/alexeev-prog/optiarch) - shell script for fast optimization of Arch Linux
- + [libnumerixpp](https://github.com/alexeev-prog/libnumerixpp) - a Powerful C++ Library for High-Performance Numerical Computing
- + [pycolor-palette](https://github.com/alexeev-prog/pycolor-palette) - display beautiful log messages, logging, debugging.
- + [shegang](https://github.com/alexeev-prog/shegang) - powerful command interpreter (shell) for linux written in C
- + [aioconsole](https://github.com/alexeev-prog/aioconsole) - simple python library for creating async CLI applications
+```asm
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Author: alexeev-prog                                                                                               ;;
+;; Example ASM Program                                                                                                ;;
+;; Program generated by FLEXPASM (github.com/alexeev-pro/flexpasm)                                                    ;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
+format ELF64 executable 3;                      ; ELF64 EXECUTABLE
+entry start                                     ; Set Start Entry
+
+
+;; Segment readable executable in FASM is a directive for defining a section of code with readable and executable attributes.
+segment readable executable
+
+start:                                          ; Label start with 7 commands
+    MOV RAX, 4                                      ; Loading 4 value into RAX register.
+    MOV RCX, message                                ; Loading message value into RCX register.
+    MOV RDX, message_size                           ; Loading message_size value into RDX register.
+    INT 128                                         ; Call software interrupt 128: SYSCALL
+    MOV RAX, 1                                      ; Loading 1 value into RAX register.
+    MOV RBX, RBX                                    ; Exclusive OR operation RBX and RBX using XOR
+    INT 128                                         ; Call software interrupt 128: SYSCALL
+
+
+;; Segment readable writeable in FASM is a definition of a segment of program data codes, where the attributes readable (the contents of the segment can be read) and writeable (program commands can both read codes and change their values) are specified for it.
+segment readable writeable
+
+message db 'Hello, World!', 0xA                 ; Var message (string)
+message_size = $-message                        ; Var message (string) length
+```
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+## 💬 Support
+If you encounter any issues or have questions about pyEchoNext, please:
+
+- Check the [documentation](./docs/en/index.md) for answers
+- Open an [issue on GitHub](https://github.com/alexeev-prog/pyEchoNext/issues/new)
+- Reach out to the project maintainers via the [mailing list](mailto:alexeev.dev@mail.ru)
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+## 🤝 Contributing
+We welcome contributions from the community! If you'd like to help improve pyEchoNext, please check out the [contributing guidelines](https://github.com/alexeev-prog/pyEchoNext/blob/main/CONTRIBUTING.md) to get started.
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+## Specifications
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+## License
+Distributed under the MIT License. See [LICENSE](https://github.com/alexeev-prog/pyEchoNext/blob/main/LICENSE) for more information.
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>

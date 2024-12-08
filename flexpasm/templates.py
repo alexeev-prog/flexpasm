@@ -1,21 +1,10 @@
-from abc import ABC, abstractmethod
-
+from flexpasm import ASMProgram
+from flexpasm.base import BaseMnemonic, MnemonicTemplate
+from flexpasm.constants import LinuxInterrupts
 from flexpasm.instructions.registers import get_registers
-from flexpasm.instructions.segments import ReadableWriteableSegment
-from flexpasm.mnemonics.data import MovMnemonic
-from flexpasm.mnemonics.io import IntMnemonic
-from flexpasm.mnemonics.logical import XorMnemonic
-from flexpasm.settings import LinuxInterrupts
-
-
-class MnemonicTemplate(ABC):
-	@abstractmethod
-	def generate(self, syntax: str, indentation: str = "") -> str:
-		raise NotImplementedError
-
-	@abstractmethod
-	def comment(self) -> str:
-		raise NotImplementedError
+from flexpasm.instructions.segments import Label
+from flexpasm.mnemonics import IntMnemonic, MovMnemonic, XorMnemonic
+from flexpasm.utils import get_indentation_by_level
 
 
 class PrintStringTemplate(MnemonicTemplate):
@@ -24,38 +13,41 @@ class PrintStringTemplate(MnemonicTemplate):
 		self.var = var
 		self.entry = entry
 
-	def generate(self, mode: str, indentation_level: int = 0) -> str:
-		if indentation_level == 0:
-			indentation = ""
-		else:
-			indentation = "\t" * indentation_level
+		self._additional_code = []
 
-		comment = self.comment()
+	def add_instruction(self, command: str | BaseMnemonic, indentation_level: int = 1):
+		indentation = get_indentation_by_level(indentation_level)
 
+		command = command.generate() if isinstance(command, BaseMnemonic) else command
+
+		self._additional_code.append(f"{indentation}{command}")
+
+	def generate(
+		self, program: ASMProgram, mode: str, indentation_level: int = 0
+	) -> str:
 		regs = get_registers(mode)
 
-		rws = ReadableWriteableSegment(skip_title=True)
+		print_lbl = Label(self.entry, [])
 
-		rec = [
-			MovMnemonic(regs.AX, 4).generate(),
-			MovMnemonic(regs.CX, f"{self.var}").generate(),
-			MovMnemonic(regs.DX, f"{self.var}_size").generate(),
-			IntMnemonic(LinuxInterrupts.SYSCALL).generate(),
-			MovMnemonic(regs.AX, 1).generate(),
-			XorMnemonic(regs.BX, regs.BX).generate(),
-			IntMnemonic(LinuxInterrupts.SYSCALL).generate(),
-		]
-
-		rws.add_string(f"{self.var}", self.string)
-
-		title = f"; Using PrintStringTemplate: {comment} ;"
-
-		text = (
-			f"{';' * len(title)}\n{title}\n{';' * len(title)}\n\n{"\n".join(rec)}",
-			f"{rws.generate()}",
+		print_lbl.add_instruction(MovMnemonic(regs.AX, 4), indentation_level)
+		print_lbl.add_instruction(MovMnemonic(regs.CX, self.var), indentation_level)
+		print_lbl.add_instruction(
+			MovMnemonic(regs.DX, f"{self.var}_size"), indentation_level
+		)
+		print_lbl.add_instruction(
+			IntMnemonic(LinuxInterrupts.SYSCALL), indentation_level
+		)
+		print_lbl.add_instruction(MovMnemonic(regs.AX, 1), indentation_level)
+		print_lbl.add_instruction(XorMnemonic(regs.BX, regs.BX), indentation_level)
+		print_lbl.add_instruction(
+			IntMnemonic(LinuxInterrupts.SYSCALL), indentation_level
 		)
 
-		return text
+		for command in self._additional_code:
+			print_lbl.add_instruction(command)
+
+		program.add_label(print_lbl)
+		program.main_rws.add_string("message", "Hello, World!")
 
 	def comment(self) -> str:
 		return f"Printing the string '{self.string}' to stdout"
