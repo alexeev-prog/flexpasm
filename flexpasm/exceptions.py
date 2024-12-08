@@ -12,6 +12,6 @@ class FlexPasmException(Exception):
 		return f"FlexPasmException has been raised. {self.get_explanation()}"
 
 
-class BackupError(FlexPasmException):
+class MacroNotFound(FlexPasmException):
 	def get_explanation(self) -> str:
-		return f"FlexPASM Backup System Error. Message: {self.message if self.message else 'missing'}"
+		return f"Macro-function not found. Message: {self.message if self.message else 'missing'}"

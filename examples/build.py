@@ -1,4 +1,5 @@
 from flexpasm import ASMProgram
+from flexpasm.builder import ASMBuilder, Compiler, File, FileChain, Linker
 from flexpasm.constants import LinuxInterrupts
 from flexpasm.instructions.registers import get_registers
 from flexpasm.instructions.segments import Label
@@ -6,12 +7,18 @@ from flexpasm.mnemonics import IntMnemonic, JmpMnemonic, MovMnemonic, XorMnemoni
 from flexpasm.settings import Settings
 from flexpasm.templates import ExitTemplate
 
+compiler = Compiler()
+linker = Linker()
+file = File(source_file="build.asm", binary_file="build", object_file="build")
+filechain = FileChain(skip_linker=True, compiler=compiler, linker=linker, files=[file])
+asmbuilder = ASMBuilder(filechain)
+
 
 def main():
 	settings = Settings(
 		title="Example ASM Program",
 		author="alexeev-prog",
-		filename="example.asm",
+		filename="build.asm",
 		mode="64",
 	)
 	asmprogram = ASMProgram(settings, __name__)
@@ -35,7 +42,8 @@ def main():
 	asmprogram.main_rws.add_string("message", "Hello, World!")
 
 	asmprogram.save_code()
-	# asmprogram.restore_backup()
+
+	asmbuilder.run_build()
 
 
 if __name__ == "__main__":

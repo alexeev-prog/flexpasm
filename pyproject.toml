@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "flexpasm"
-version = "0.2.2"
+version = "0.3.1"
 description = "Python library for writing assembly code through object abstractions"
 authors = ["alexeev-prog <alexeev.dev@mail.ru>"]
 license = "MIT License"

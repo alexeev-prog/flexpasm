@@ -14,7 +14,9 @@ from flexpasm.mnemonics.bitshift import (
 )
 from flexpasm.mnemonics.data import (
 	MovMnemonic,
+	PopaMnemonic,
 	PopMnemonic,
+	PushaMnemonic,
 	PushMnemonic,
 	SwapMnemonic,
 	XchgMnemonic,
@@ -30,7 +32,7 @@ from flexpasm.mnemonics.flow import (
 	JneMnemonic,
 	RetMnemonic,
 )
-from flexpasm.mnemonics.io import IntMnemonic, IretMnemonic
+from flexpasm.mnemonics.io import IntMnemonic, IretMnemonic, SyscallMnemonic
 from flexpasm.mnemonics.logical import (
 	AndMnemonic,
 	CmpMnemonic,
@@ -70,4 +72,7 @@ all = [
 	SwapMnemonic,
 	IretMnemonic,
 	CmpMnemonic,
+	SyscallMnemonic,
+	PushaMnemonic,
+	PopaMnemonic,
 ]

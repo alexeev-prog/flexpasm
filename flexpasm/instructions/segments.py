@@ -15,9 +15,9 @@ class BaseSegment(ABC):
 
 
 class Label(BaseSegment):
-	def __init__(self, entry: str, commands: list = []):
+	def __init__(self, entry: str):
 		self.entry = entry
-		self.commands = commands
+		self.commands = []
 
 	def add_instruction(
 		self,
@@ -192,9 +192,9 @@ class ReadableWriteableSegment(BaseSegment):
 	def add_instructions(self, commands: list):
 		self._code += commands
 
-	def add_string(self, var_name: str, string: str):
-		var = f"{var_name} db '{string}', 0xA"
-		var_size = f"{var_name}_size = $-{var_name}"
+	def add_string(self, var_name: str, string: str, var_size_postfix: str = "_size"):
+		var = f"{var_name} db '{string}', 0"
+		var_size = f"{var_name}{var_size_postfix} = $-{var_name}"
 		self._code += [
 			f"{var.ljust(MAX_MESSAGE_LENGTH)}; Var {var_name} (string)",
 			f"{var_size.ljust(MAX_MESSAGE_LENGTH)}; Var {var_name} (string) length\n",

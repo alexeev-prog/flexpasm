@@ -6,28 +6,28 @@ from flexpasm.templates import PrintStringTemplate
 
 
 def main():
-    settings = Settings(
-        title="Example ASM Program with Templates",
-        author="alexeev-prog",
-        filename="example_templates.asm",
-        mode="32",
-    )
-    asmprogram = ASMProgram(settings, __name__)
+	settings = Settings(
+		title="Example ASM Program with Templates",
+		author="alexeev-prog",
+		filename="example_templates.asm",
+		mode="32",
+	)
+	asmprogram = ASMProgram(settings, __name__)
 
-    pst = PrintStringTemplate("Hello, World!")
-    pst2 = PrintStringTemplate("Hello, World!", "msg2", "print_string2")
-    start_lbl = Label("start")
+	pst = PrintStringTemplate("Hello, World!")
+	pst2 = PrintStringTemplate("Hello, World!", "msg2", "print_string2")
+	start_lbl = Label("start")
 
-    start_lbl.add_instruction(
-        JmpMnemonic("print_string"), 1, comment="Jump to print strint template"
-    )
+	start_lbl.add_instruction(
+		JmpMnemonic("print_string"), 1, comment="Jump to print strint template"
+	)
 
-    asmprogram.add_label(start_lbl)
-    asmprogram.add_template(pst)
-    asmprogram.add_template(pst2)
+	asmprogram.add_label(start_lbl)
+	asmprogram.add_template(pst)
+	asmprogram.add_template(pst2)
 
-    asmprogram.save_code()
+	asmprogram.save_code()
 
 
 if __name__ == "__main__":
-    main()
+	main()

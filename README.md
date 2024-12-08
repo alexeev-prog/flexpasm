@@ -54,6 +54,7 @@ pip install flexpasm
 Once installed, you can start using the library in your Python projects. Check out the [documentation](./docs/en/index.md) for detailed usage examples and API reference.
 
 ## Basic Usage
+You can view examples in [examples directory](./examples).
 
 ### Using templates
 
@@ -95,6 +96,7 @@ if __name__ == "__main__":
 
 ```bash
 $ fasm example_templates.asm example_templates
+$ ld example_templates -o example_templates
 $ ./example_templates
 
 Hello, World!
@@ -192,6 +194,7 @@ if __name__ == "__main__":
 
 ```bash
 $ fasm example.asm example
+$ ld example -o example
 $ ./example
 
 Hello, World!

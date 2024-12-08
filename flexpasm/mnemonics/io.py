@@ -47,3 +47,20 @@ class IretMnemonic(_DefaultMnemonic):
 
 	def comment(self) -> str:
 		return "Return from interrupt"
+
+
+class SyscallMnemonic(_DefaultMnemonic):
+	"""
+	SYSCALL is a mnemonic for the launch syscall in assembly language.
+	"""
+
+	def __init__(self):
+		super().__init__("SYSCALL")
+
+	def generate(self, indentation: str = ""):
+		msg = "SYSCALL"
+		Highlighter.highlight(f"{msg.ljust(MAX_MESSAGE_LENGTH)}; {self.comment()}")
+		return f"{indentation}{msg.ljust(MAX_MESSAGE_LENGTH)}; {self.comment()}"
+
+	def comment(self) -> str:
+		return "Launch system call"
