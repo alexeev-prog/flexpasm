@@ -6,130 +6,130 @@ from flexpasm.backup import BackupManager
 from flexpasm.base import MnemonicTemplate
 from flexpasm.constants import MAX_MESSAGE_LENGTH
 from flexpasm.instructions.segments import (
-	Label,
-	ReadableExecutableSegment,
-	ReadableWriteableSegment,
+    Label,
+    ReadableExecutableSegment,
+    ReadableWriteableSegment,
 )
 from flexpasm.rich_highlighter import Highlighter
 from flexpasm.settings import Settings
 
 
 class _ASMFileHandler:
-	@staticmethod
-	def save(abs_path: str, filename: str, content: str, flag: str = "w"):
-		filename = os.path.join(abs_path, filename)
-		print(f"Save content to file: {filename}")
-		with open(filename, flag) as file:
-			file.write(content)
+    @staticmethod
+    def save(abs_path: str, filename: str, content: str, flag: str = "w"):
+        filename = os.path.join(abs_path, filename)
+        print(f"Save content to file: {filename}")
+        with open(filename, flag) as file:
+            file.write(content)
 
 
 class ASMProgram:
-	def __init__(self, settings: Settings, mainfile: str):
-		self.settings = settings
-		self.backup = BackupManager(self.settings)
-		self._code = []
-		self._code += [self._generate_start_description(), ""]
+    def __init__(self, settings: Settings, mainfile: str):
+        self.settings = settings
+        self.backup = BackupManager(self.settings)
+        self._code = []
+        self._code += [self._generate_start_description(), ""]
 
-		self.abs_path = os.path.dirname(os.path.abspath(mainfile))
+        self.abs_path = os.path.dirname(os.path.abspath(mainfile))
 
-		self._prelude_warnings_count = 0
-		self._post_warnings_count = 0
+        self._prelude_warnings_count = 0
+        self._post_warnings_count = 0
 
-		self.main_res = ReadableExecutableSegment()
-		self.main_rws = ReadableWriteableSegment()
+        self.main_res = ReadableExecutableSegment()
+        self.main_rws = ReadableWriteableSegment()
 
-		self._print_prelude_warnings()
+        self._print_prelude_warnings()
 
-	def _print_prelude_warnings(self):
-		if self.settings.mode == "16":
-			self._prelude_warnings_count += 1
-			print(
-				"[yellow][bold][WARNING][/bold] 16-bit mode (real address mode) is not recommended to be used[/yellow]"
-			)
+    def _print_prelude_warnings(self):
+        if self.settings.mode == "16":
+            self._prelude_warnings_count += 1
+            print(
+                "[yellow][bold][WARNING][/bold] 16-bit mode (real address mode) is not recommended to be used[/yellow]"
+            )
 
-		if not self.settings.start_entry:
-			self._prelude_warnings_count += 1
-			print(
-				"[yellow][bold][WARNING][/bold] Not found start_entry in Settings[/yellow]"
-			)
+        if not self.settings.start_entry:
+            self._prelude_warnings_count += 1
+            print(
+                "[yellow][bold][WARNING][/bold] Not found start_entry in Settings[/yellow]"
+            )
 
-		print(f"[bold]Total prelude warnings: {self._prelude_warnings_count}\n[/bold]")
+        print(f"[bold]Total prelude warnings: {self._prelude_warnings_count}\n[/bold]")
 
-	def _print_post_warnings(self):
-		print()
-		entry = [
-			entry
-			for entry in self._code
-			if f"{self.settings.start_entry}:" in entry.strip()
-		]
+    def _print_post_warnings(self):
+        print()
+        entry = [
+            entry
+            for entry in self._code
+            if f"{self.settings.start_entry}:" in entry.strip()
+        ]
 
-		if not entry:
-			print("[yellow][bold][WARNING][/bold] Start Entry Not Found[/yellow]")
-			self._post_warnings_count += 1
+        if not entry:
+            print("[yellow][bold][WARNING][/bold] Start Entry Not Found[/yellow]")
+            self._post_warnings_count += 1
 
-		print(f"[bold]Total post warnings: {self._post_warnings_count}[/bold]")
-		print(
-			f"[bold]Total warnings: {self._post_warnings_count + self._prelude_warnings_count}[/bold]"
-		)
+        print(f"[bold]Total post warnings: {self._post_warnings_count}[/bold]")
+        print(
+            f"[bold]Total warnings: {self._post_warnings_count + self._prelude_warnings_count}[/bold]"
+        )
 
-	def add_label(self, label: Label, indentation_level: int = 1):
-		print(f"[bold]Add label: {label.entry}[/bold]")
-		self.main_res.set_commands_for_label(label, label.generate().split("\n"))
+    def add_label(self, label: Label, indentation_level: int = 1):
+        print(f"[bold]Add label: {label.entry}[/bold]")
+        self.main_res.set_commands_for_label(label, label.generate().split("\n"))
 
-	def add_instruction(self, instruction: str, indentation_level: int = 0):
-		print(f"[bold]Add instruction: {instruction}[/bold]")
-		Highlighter.highlight(instruction)
-		if indentation_level == 0:
-			indentation = ""
-		else:
-			indentation = "\t" * indentation_level
+    def add_instruction(self, instruction: str, indentation_level: int = 0):
+        print(f"[bold]Add instruction: {instruction}[/bold]")
+        Highlighter.highlight(instruction)
+        if indentation_level == 0:
+            indentation = ""
+        else:
+            indentation = "\t" * indentation_level
 
-		self._code.append(f"{indentation}{instruction}")
+        self._code.append(f"{indentation}{instruction}")
 
-	def add_template(self, template: MnemonicTemplate, merge_with_main: bool = True):
-		print(f"[bold]Add template: {template.__class__.__name__}[/bold]")
+    def add_template(self, template: MnemonicTemplate, merge_with_main: bool = True):
+        print(f"[bold]Add template: {template.__class__.__name__}[/bold]")
 
-		template.generate(self, self.settings.mode, indentation_level=1)
+        template.generate(self, self.settings.mode, indentation_level=1)
 
-	def _generate_start_description(self) -> str:
-		title = f";; {self.settings.title}"
-		author = f";; Author: {self.settings.author}"
-		end = ";; Program generated by FLEXPASM (github.com/alexeev-pro/flexpasm)"
-		elf_format = "ELF64" if self.settings.mode == "64" else "ELF"
-		executable = " executable" if self.settings.executable else ""
-		format_code = f"format {elf_format}{executable};"
-		entry_code = f"entry {self.settings.start_entry}"
+    def _generate_start_description(self) -> str:
+        title = f";; {self.settings.title}"
+        author = f";; Author: {self.settings.author}"
+        end = ";; Program generated by FLEXPASM (github.com/alexeev-pro/flexpasm)"
+        elf_format = "ELF64" if self.settings.mode == "64" else "ELF"
+        executable = " executable" if self.settings.executable else ""
+        format_code = f"format {elf_format}{executable};"
+        entry_code = f"entry {self.settings.start_entry}"
 
-		print(f"Create {elf_format} Program: {self.settings.title}")
+        print(f"Create {elf_format} Program: {self.settings.title}")
 
-		return f"""{";" * 120}
-{author}{' ' * (118 - len(author))};;
-{title}{' ' * (118 - len(title))};;
-{end}{' ' * (118 - len(end))};;
+        return f"""{";" * 120}
+{author}{" " * (118 - len(author))};;
+{title}{" " * (118 - len(title))};;
+{end}{" " * (118 - len(end))};;
 {";" * 120}
 
 {format_code.ljust(MAX_MESSAGE_LENGTH)}; {elf_format} EXECUTABLE
 {entry_code.ljust(MAX_MESSAGE_LENGTH)}; Set Start Entry"""
 
-	def _get_source_code(self) -> str:
-		self.main_res.generate()
+    def _get_source_code(self) -> str:
+        self.main_res.generate()
 
-		self._code += self.main_res.code
-		self._code += self.main_rws.code
+        self._code += self.main_res.code
+        self._code += self.main_rws.code
 
-		self._print_post_warnings()
+        self._print_post_warnings()
 
-		return "\n".join(self._code).strip()
+        return "\n".join(self._code).strip()
 
-	def restore_backup(self, num: int = None):
-		self.backup.restore(num)
+    def restore_backup(self, num: int = None):
+        self.backup.restore(num)
 
-	def save_code(self, return_content: bool = False, save_file: bool = True):
-		content = self._get_source_code()
-		self.backup.create_backup(content)
+    def save_code(self, return_content: bool = False, save_file: bool = True):
+        content = self._get_source_code()
+        self.backup.create_backup(content)
 
-		if save_file:
-			_ASMFileHandler.save(self.abs_path, self.settings.filename, content)
+        if save_file:
+            _ASMFileHandler.save(self.abs_path, self.settings.filename, content)
 
-		if return_content:
-			return content
+        if return_content:
+            return content
