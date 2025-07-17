@@ -66,7 +66,8 @@ class IncMnemonic(_DefaultMnemonic):
 
     def generate(self, indentation: str = ""):
         msg = f"{self.mnemonic_name} {self.dest!s}"
-        Highlighter.highlight(f"{msg.ljust(MAX_MESSAGE_LENGTH)}; {self.comment()}")
+        Highlighter.highlight(
+            f"{msg.ljust(MAX_MESSAGE_LENGTH)}; {self.comment()}")
         return f'{indentation}{f"{self.mnemonic_name} {self.dest!s}".ljust(MAX_MESSAGE_LENGTH)}; {self.comment()}'
 
     def comment(self) -> str:
@@ -83,7 +84,8 @@ class DecMnemonic(_DefaultMnemonic):
 
     def generate(self, indentation: str = ""):
         msg = f"{self.mnemonic_name} {self.dest!s}"
-        Highlighter.highlight(f"{msg.ljust(MAX_MESSAGE_LENGTH)}; {self.comment()}")
+        Highlighter.highlight(
+            f"{msg.ljust(MAX_MESSAGE_LENGTH)}; {self.comment()}")
         return f'{indentation}{f"{self.mnemonic_name} {self.dest!s}".ljust(MAX_MESSAGE_LENGTH)}; {self.comment()}'
 
     def comment(self) -> str:

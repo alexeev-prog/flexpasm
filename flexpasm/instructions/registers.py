@@ -83,7 +83,8 @@ def get_registers(mode: str) -> Register16 | Register32 | Registers64:
 
 class ByteRegister(BaseRegister):
     def __init__(self, *args):
-        args = [str(arg.value) if isinstance(arg, Enum) else str(arg) for arg in args]
+        args = [str(arg.value) if isinstance(arg, Enum) else str(arg)
+                for arg in args]
         self._name = f'byte [{" + ".join(args)}]'
 
     def __str__(self):

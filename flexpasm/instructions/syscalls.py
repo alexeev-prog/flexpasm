@@ -27,7 +27,8 @@ class Syscall:
         }
 
         for i, arg in enumerate(args):
-            instructions.append(MovMnemonic(arg_mapping[i], arg).generate(indentation))
+            instructions.append(MovMnemonic(
+                arg_mapping[i], arg).generate(indentation))
 
         instructions.append(f"{indentation}syscall")
 

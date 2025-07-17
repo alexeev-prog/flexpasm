@@ -21,7 +21,8 @@ class JmpMnemonic(_DefaultMnemonic):
 
     def generate(self, indentation: str = ""):
         msg = f"JMP {self.label}"
-        Highlighter.highlight(f"{msg.ljust(MAX_MESSAGE_LENGTH)}; {self.comment()}")
+        Highlighter.highlight(
+            f"{msg.ljust(MAX_MESSAGE_LENGTH)}; {self.comment()}")
         return f"{indentation}{msg.ljust(MAX_MESSAGE_LENGTH)}; {self.comment()}"
 
     def comment(self) -> str:
@@ -40,7 +41,8 @@ class JeMnemonic(_DefaultMnemonic):
 
     def generate(self, indentation: str = ""):
         msg = f"JE {self.label}"
-        Highlighter.highlight(f"{msg.ljust(MAX_MESSAGE_LENGTH)}; {self.comment()}")
+        Highlighter.highlight(
+            f"{msg.ljust(MAX_MESSAGE_LENGTH)}; {self.comment()}")
         return f"{indentation}{msg.ljust(MAX_MESSAGE_LENGTH)}; {self.comment()}"
 
     def comment(self) -> str:
@@ -59,7 +61,8 @@ class JneMnemonic(_DefaultMnemonic):
 
     def generate(self, indentation: str = ""):
         msg = f"JNE {self.label}"
-        Highlighter.highlight(f"{msg.ljust(MAX_MESSAGE_LENGTH)}; {self.comment()}")
+        Highlighter.highlight(
+            f"{msg.ljust(MAX_MESSAGE_LENGTH)}; {self.comment()}")
         return f"{indentation}{msg.ljust(MAX_MESSAGE_LENGTH)}; {self.comment()}"
 
     def comment(self) -> str:
@@ -78,7 +81,8 @@ class JgMnemonic(_DefaultMnemonic):
 
     def generate(self, indentation: str = ""):
         msg = f"JG {self.label}"
-        Highlighter.highlight(f"{msg.ljust(MAX_MESSAGE_LENGTH)}; {self.comment()}")
+        Highlighter.highlight(
+            f"{msg.ljust(MAX_MESSAGE_LENGTH)}; {self.comment()}")
         return f"{indentation}{msg.ljust(MAX_MESSAGE_LENGTH)}; {self.comment()}"
 
     def comment(self) -> str:
@@ -97,7 +101,8 @@ class JLMnemonic(_DefaultMnemonic):
 
     def generate(self, indentation: str = ""):
         msg = f"JL {self.label}"
-        Highlighter.highlight(f"{msg.ljust(MAX_MESSAGE_LENGTH)}; {self.comment()}")
+        Highlighter.highlight(
+            f"{msg.ljust(MAX_MESSAGE_LENGTH)}; {self.comment()}")
         return f"{indentation}{msg.ljust(MAX_MESSAGE_LENGTH)}; {self.comment()}"
 
     def comment(self) -> str:
@@ -116,7 +121,8 @@ class JgeMnemonic(_DefaultMnemonic):
 
     def generate(self, indentation: str = ""):
         msg = f"JGE {self.label}"
-        Highlighter.highlight(f"{msg.ljust(MAX_MESSAGE_LENGTH)}; {self.comment()}")
+        Highlighter.highlight(
+            f"{msg.ljust(MAX_MESSAGE_LENGTH)}; {self.comment()}")
         return f"{indentation}{msg.ljust(MAX_MESSAGE_LENGTH)}; {self.comment()}"
 
     def comment(self) -> str:
@@ -135,7 +141,8 @@ class JleMnemonic(_DefaultMnemonic):
 
     def generate(self, indentation: str = ""):
         msg = f"JLE {self.label}"
-        Highlighter.highlight(f"{msg.ljust(MAX_MESSAGE_LENGTH)}; {self.comment()}")
+        Highlighter.highlight(
+            f"{msg.ljust(MAX_MESSAGE_LENGTH)}; {self.comment()}")
         return f"{indentation}{msg.ljust(MAX_MESSAGE_LENGTH)}; {self.comment()}"
 
     def comment(self) -> str:
@@ -154,7 +161,8 @@ class CallMnemonic(_DefaultMnemonic):
 
     def generate(self, indentation: str = ""):
         msg = f"CALL {self.label}"
-        Highlighter.highlight(f"{msg.ljust(MAX_MESSAGE_LENGTH)}; {self.comment()}")
+        Highlighter.highlight(
+            f"{msg.ljust(MAX_MESSAGE_LENGTH)}; {self.comment()}")
         return f"{indentation}{msg.ljust(MAX_MESSAGE_LENGTH)}; {self.comment()}"
 
     def comment(self) -> str:
@@ -171,7 +179,8 @@ class RetMnemonic(_DefaultMnemonic):
 
     def generate(self, indentation: str = ""):
         msg = "RET"
-        Highlighter.highlight(f"{msg.ljust(MAX_MESSAGE_LENGTH)}; {self.comment()}")
+        Highlighter.highlight(
+            f"{msg.ljust(MAX_MESSAGE_LENGTH)}; {self.comment()}")
         return f"{indentation}{msg.ljust(MAX_MESSAGE_LENGTH)}; {self.comment()}"
 
     def comment(self) -> str:

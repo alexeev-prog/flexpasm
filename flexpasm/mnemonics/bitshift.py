@@ -8,7 +8,8 @@ class ShlMnemonic(_DefaultMnemonic):
 
     def generate(self, indentation: str = ""):
         msg = f"SHL {self.dest!s}"
-        Highlighter.highlight(f"{msg.ljust(MAX_MESSAGE_LENGTH)}; {self.comment()}")
+        Highlighter.highlight(
+            f"{msg.ljust(MAX_MESSAGE_LENGTH)}; {self.comment()}")
         return f"{indentation}{msg.ljust(MAX_MESSAGE_LENGTH)}; {self.comment()}"
 
     def comment(self) -> str:
@@ -21,7 +22,8 @@ class ShrMnemonic(_DefaultMnemonic):
 
     def generate(self, indentation: str = ""):
         msg = f"SHR {self.dest()!s}"
-        Highlighter.highlight(f"{msg.ljust(MAX_MESSAGE_LENGTH)}; {self.comment()}")
+        Highlighter.highlight(
+            f"{msg.ljust(MAX_MESSAGE_LENGTH)}; {self.comment()}")
         return f"{indentation}{msg.ljust(MAX_MESSAGE_LENGTH)}; {self.comment()}"
 
     def comment(self) -> str:
@@ -34,7 +36,8 @@ class RorMnemonic(_DefaultMnemonic):
 
     def generate(self, indentation: str = ""):
         msg = f"ROR {self.dest()!s}"
-        Highlighter.highlight(f"{msg.ljust(MAX_MESSAGE_LENGTH)}; {self.comment()}")
+        Highlighter.highlight(
+            f"{msg.ljust(MAX_MESSAGE_LENGTH)}; {self.comment()}")
         return f"{indentation}{msg.ljust(MAX_MESSAGE_LENGTH)}; {self.comment()}"
 
     def comment(self) -> str:
@@ -47,7 +50,8 @@ class RolMnemonic(_DefaultMnemonic):
 
     def generate(self, indentation: str = ""):
         msg = f"ROL {self.dest()!s}"
-        Highlighter.highlight(f"{msg.ljust(MAX_MESSAGE_LENGTH)}; {self.comment()}")
+        Highlighter.highlight(
+            f"{msg.ljust(MAX_MESSAGE_LENGTH)}; {self.comment()}")
         return f"{indentation}{msg.ljust(MAX_MESSAGE_LENGTH)}; {self.comment()}"
 
     def comment(self) -> str:

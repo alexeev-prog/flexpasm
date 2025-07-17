@@ -29,7 +29,8 @@ class PushaMnemonic(_DefaultMnemonic):
 
     def generate(self, indentation: str = ""):
         msg = "PUSHA"
-        Highlighter.highlight(f"{msg.ljust(MAX_MESSAGE_LENGTH)}; {self.comment()}")
+        Highlighter.highlight(
+            f"{msg.ljust(MAX_MESSAGE_LENGTH)}; {self.comment()}")
         return f"{indentation}{msg.ljust(MAX_MESSAGE_LENGTH)}; {self.comment()}"
 
     def comment(self) -> str:
@@ -46,7 +47,8 @@ class PopaMnemonic(_DefaultMnemonic):
 
     def generate(self, indentation: str = ""):
         msg = "POPA"
-        Highlighter.highlight(f"{msg.ljust(MAX_MESSAGE_LENGTH)}; {self.comment()}")
+        Highlighter.highlight(
+            f"{msg.ljust(MAX_MESSAGE_LENGTH)}; {self.comment()}")
         return f"{indentation}{msg.ljust(MAX_MESSAGE_LENGTH)}; {self.comment()}"
 
     def comment(self) -> str:
@@ -63,7 +65,8 @@ class PopMnemonic(_DefaultMnemonic):
 
     def generate(self, indentation: str = ""):
         msg = f"POP {self.source}"
-        Highlighter.highlight(f"{msg.ljust(MAX_MESSAGE_LENGTH)}; {self.comment()}")
+        Highlighter.highlight(
+            f"{msg.ljust(MAX_MESSAGE_LENGTH)}; {self.comment()}")
         return f"{indentation}{msg.ljust(MAX_MESSAGE_LENGTH)}; {self.comment()}"
 
     def comment(self) -> str:
@@ -80,7 +83,8 @@ class PushMnemonic(_DefaultMnemonic):
 
     def generate(self, indentation: str = ""):
         msg = f"PUSH {self.source}"
-        Highlighter.highlight(f"{msg.ljust(MAX_MESSAGE_LENGTH)}; {self.comment()}")
+        Highlighter.highlight(
+            f"{msg.ljust(MAX_MESSAGE_LENGTH)}; {self.comment()}")
         return f"{indentation}{msg.ljust(MAX_MESSAGE_LENGTH)}; {self.comment()}"
 
     def comment(self) -> str:
@@ -109,7 +113,8 @@ class SwapMnemonic(_DefaultMnemonic):
 
     def generate(self, indentation: str = ""):
         msg = "SWAP"
-        Highlighter.highlight(f"{msg.ljust(MAX_MESSAGE_LENGTH)}; {self.comment()}")
+        Highlighter.highlight(
+            f"{msg.ljust(MAX_MESSAGE_LENGTH)}; {self.comment()}")
         return f"{indentation}{msg.ljust(MAX_MESSAGE_LENGTH)}; {self.comment()}"
 
     def comment(self) -> str:

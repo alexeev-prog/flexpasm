@@ -57,7 +57,8 @@ class BackupManager:
         self._backups_files.append(filename)
 
         if len(self._backups_files) > self.backups_limit:
-            self._backups_files = self._backups_files[::-1][: self.backups_limit - 1]
+            self._backups_files = self._backups_files[::-
+                                                      1][: self.backups_limit - 1]
 
         self._save_to_json()
 

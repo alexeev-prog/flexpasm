@@ -36,7 +36,8 @@ class Label(BaseSegment):
         if comment is None:
             self.commands.append(f"{command}")
         else:
-            self.commands.append(f"{command.ljust(MAX_MESSAGE_LENGTH)}; {comment}")
+            self.commands.append(
+                f"{command.ljust(MAX_MESSAGE_LENGTH)}; {comment}")
 
     def add_instructions(
         self, commands: list, indentation_level: int = 1, comment: str | list = None
@@ -74,7 +75,8 @@ class Label(BaseSegment):
                     self.commands.append(command_code)
 
     def generate(self, indentation: str = "") -> str:
-        code = "\n".join([f"{indentation}{command}" for command in self.commands])
+        code = "\n".join(
+            [f"{indentation}{command}" for command in self.commands])
         return code
 
     def comment(self) -> str:
@@ -151,7 +153,8 @@ class ReadableExecutableSegment(BaseSegment):
     def generate(self) -> str:
         for label, commands in self.labels.items():
             self._code.append(
-                f'{f"{label.entry}:".ljust(MAX_MESSAGE_LENGTH)}; {label.comment()}'
+                f'{f"{label.entry}:".ljust(MAX_MESSAGE_LENGTH)}; {
+                    label.comment()}'
             )
             self._code.append(f"{commands}")
 

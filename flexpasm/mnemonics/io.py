@@ -17,11 +17,13 @@ class IntMnemonic(_DefaultMnemonic):
 
         if isinstance(interrupt_number, LinuxInterrupts):
             self.interrupt_number = interrupt_number.value
-            self.additional_comments = str(LinuxInterrupts(self.interrupt_number).name)
+            self.additional_comments = str(
+                LinuxInterrupts(self.interrupt_number).name)
 
     def generate(self, indentation: str = ""):
         msg = f"INT {self.interrupt_number}"
-        Highlighter.highlight(f"{msg.ljust(MAX_MESSAGE_LENGTH)}; {self.comment()}")
+        Highlighter.highlight(
+            f"{msg.ljust(MAX_MESSAGE_LENGTH)}; {self.comment()}")
         return f'{indentation}{f"INT {self.interrupt_number!s}".ljust(MAX_MESSAGE_LENGTH)}; {self.comment()}'
 
     def comment(self) -> str:
@@ -42,7 +44,8 @@ class IretMnemonic(_DefaultMnemonic):
 
     def generate(self, indentation: str = ""):
         msg = "IRET"
-        Highlighter.highlight(f"{msg.ljust(MAX_MESSAGE_LENGTH)}; {self.comment()}")
+        Highlighter.highlight(
+            f"{msg.ljust(MAX_MESSAGE_LENGTH)}; {self.comment()}")
         return f"{indentation}{msg.ljust(MAX_MESSAGE_LENGTH)}; {self.comment()}"
 
     def comment(self) -> str:
@@ -59,7 +62,8 @@ class SyscallMnemonic(_DefaultMnemonic):
 
     def generate(self, indentation: str = ""):
         msg = "SYSCALL"
-        Highlighter.highlight(f"{msg.ljust(MAX_MESSAGE_LENGTH)}; {self.comment()}")
+        Highlighter.highlight(
+            f"{msg.ljust(MAX_MESSAGE_LENGTH)}; {self.comment()}")
         return f"{indentation}{msg.ljust(MAX_MESSAGE_LENGTH)}; {self.comment()}"
 
     def comment(self) -> str:

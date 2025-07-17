@@ -29,7 +29,8 @@ class ExitTemplateWithoutCode(MnemonicTemplate):
         )
 
         for command in self._additional_code:
-            exit_lbl.add_instruction(command, indentation_level=indentation_level)
+            exit_lbl.add_instruction(
+                command, indentation_level=indentation_level)
 
         exit_lbl.add_instruction(
             MovMnemonic(regs.AX, 60), indentation_level=indentation_level
@@ -77,7 +78,8 @@ class ExitTemplate(MnemonicTemplate):
         )
 
         for command in self._additional_code:
-            exit_lbl.add_instruction(command, indentation_level=indentation_level)
+            exit_lbl.add_instruction(
+                command, indentation_level=indentation_level)
 
         exit_lbl.add_instruction(
             MovMnemonic(regs.AX, 1), indentation_level=indentation_level

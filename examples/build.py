@@ -10,7 +10,8 @@ from flexpasm.templates import ExitTemplate
 compiler = Compiler()
 linker = Linker()
 file = File(source_file="build.asm", binary_file="build", object_file="build")
-filechain = FileChain(skip_linker=True, compiler=compiler, linker=linker, files=[file])
+filechain = FileChain(skip_linker=True, compiler=compiler,
+                      linker=linker, files=[file])
 asmbuilder = ASMBuilder(filechain)
 
 

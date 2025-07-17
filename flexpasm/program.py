@@ -53,7 +53,8 @@ class ASMProgram:
                 "[yellow][bold][WARNING][/bold] Not found start_entry in Settings[/yellow]"
             )
 
-        print(f"[bold]Total prelude warnings: {self._prelude_warnings_count}\n[/bold]")
+        print(
+            f"[bold]Total prelude warnings: {self._prelude_warnings_count}\n[/bold]")
 
     def _print_post_warnings(self):
         print()
@@ -74,7 +75,8 @@ class ASMProgram:
 
     def add_label(self, label: Label, indentation_level: int = 1):
         print(f"[bold]Add label: {label.entry}[/bold]")
-        self.main_res.set_commands_for_label(label, label.generate().split("\n"))
+        self.main_res.set_commands_for_label(
+            label, label.generate().split("\n"))
 
     def add_instruction(self, instruction: str, indentation_level: int = 0):
         print(f"[bold]Add instruction: {instruction}[/bold]")
@@ -129,7 +131,8 @@ class ASMProgram:
         self.backup.create_backup(content)
 
         if save_file:
-            _ASMFileHandler.save(self.abs_path, self.settings.filename, content)
+            _ASMFileHandler.save(
+                self.abs_path, self.settings.filename, content)
 
         if return_content:
             return content

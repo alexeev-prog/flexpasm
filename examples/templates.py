@@ -15,7 +15,8 @@ def main():
     asmprogram = ASMProgram(settings, __name__)
 
     pst = PrintStringTemplate("Hello, World!")
-    pst2 = PrintStringTemplate("Hello, World!", var="msg2", entry="print_string2")
+    pst2 = PrintStringTemplate(
+        "Hello, World!", var="msg2", entry="print_string2")
     start_lbl = Label("start")
 
     start_lbl.add_instruction(
