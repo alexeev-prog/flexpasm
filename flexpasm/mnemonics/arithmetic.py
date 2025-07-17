@@ -1,5 +1,3 @@
-from typing import Union
-
 from flexpasm.base import BaseRegister
 from flexpasm.constants import MAX_MESSAGE_LENGTH
 from flexpasm.mnemonics.base import _DefaultMnemonic
@@ -12,11 +10,11 @@ class AddMnemonic(_DefaultMnemonic):
     are equal in size; only two 16-bit numbers or two 8-bit numbers can be added to each other.
     """
 
-    def __init__(self, dest: BaseRegister, source: Union[BaseRegister, str, int]):
+    def __init__(self, dest: BaseRegister, source: BaseRegister | str | int):
         super().__init__("ADD", dest, source)
 
     def comment(self) -> str:
-        return f"Adding the {str(self.source)} value to the {str(self.dest)} register"
+        return f"Adding the {self.source!s} value to the {self.dest!s} register"
 
 
 class SubMnemonic(_DefaultMnemonic):
@@ -25,11 +23,11 @@ class SubMnemonic(_DefaultMnemonic):
     operand and replaces the destination with the result.
     """
 
-    def __init__(self, dest: BaseRegister, source: Union[BaseRegister, str, int]):
+    def __init__(self, dest: BaseRegister, source: BaseRegister | str | int):
         super().__init__("SUB", dest, source)
 
     def comment(self) -> str:
-        return f"Substracting the {str(self.source)} value to the {str(self.dest)} register"
+        return f"Substracting the {self.source!s} value to the {self.dest!s} register"
 
 
 class DivMnemonic(_DefaultMnemonic):
@@ -38,11 +36,11 @@ class DivMnemonic(_DefaultMnemonic):
     operand and replaces the destination with the result.
     """
 
-    def __init__(self, dest: BaseRegister, source: Union[BaseRegister, str, int]):
+    def __init__(self, dest: BaseRegister, source: BaseRegister | str | int):
         super().__init__("DIV", dest, source)
 
     def comment(self) -> str:
-        return f"Divising the {str(self.source)} value to the {str(self.dest)} register"
+        return f"Divising the {self.source!s} value to the {self.dest!s} register"
 
 
 class MulMnemonic(_DefaultMnemonic):
@@ -51,11 +49,11 @@ class MulMnemonic(_DefaultMnemonic):
     operand and replaces the destination with the result.
     """
 
-    def __init__(self, dest: BaseRegister, source: Union[BaseRegister, str, int]):
+    def __init__(self, dest: BaseRegister, source: BaseRegister | str | int):
         super().__init__("MUL", dest, source)
 
     def comment(self) -> str:
-        return f"Multiplication the {str(self.source)} value to the {str(self.dest)} register"
+        return f"Multiplication the {self.source!s} value to the {self.dest!s} register"
 
 
 class IncMnemonic(_DefaultMnemonic):
@@ -67,12 +65,12 @@ class IncMnemonic(_DefaultMnemonic):
         super().__init__("INC", dest)
 
     def generate(self, indentation: str = ""):
-        msg = f"{self.mnemonic_name} {str(self.dest)}"
+        msg = f"{self.mnemonic_name} {self.dest!s}"
         Highlighter.highlight(f"{msg.ljust(MAX_MESSAGE_LENGTH)}; {self.comment()}")
-        return f"{indentation}{f'{self.mnemonic_name} {str(self.dest)}'.ljust(MAX_MESSAGE_LENGTH)}; {self.comment()}"
+        return f'{indentation}{f"{self.mnemonic_name} {self.dest!s}".ljust(MAX_MESSAGE_LENGTH)}; {self.comment()}'
 
     def comment(self) -> str:
-        return f"Increment the {str(self.dest)}"
+        return f"Increment the {self.dest!s}"
 
 
 class DecMnemonic(_DefaultMnemonic):
@@ -84,9 +82,9 @@ class DecMnemonic(_DefaultMnemonic):
         super().__init__("DEC", dest)
 
     def generate(self, indentation: str = ""):
-        msg = f"{self.mnemonic_name} {str(self.dest)}"
+        msg = f"{self.mnemonic_name} {self.dest!s}"
         Highlighter.highlight(f"{msg.ljust(MAX_MESSAGE_LENGTH)}; {self.comment()}")
-        return f"{indentation}{f'{self.mnemonic_name} {str(self.dest)}'.ljust(MAX_MESSAGE_LENGTH)}; {self.comment()}"
+        return f'{indentation}{f"{self.mnemonic_name} {self.dest!s}".ljust(MAX_MESSAGE_LENGTH)}; {self.comment()}'
 
     def comment(self) -> str:
-        return f"Decrement the {str(self.dest)}"
+        return f"Decrement the {self.dest!s}"

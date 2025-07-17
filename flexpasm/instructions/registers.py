@@ -1,5 +1,4 @@
 from enum import Enum
-from typing import Union
 
 from flexpasm.base import BaseRegister
 
@@ -73,19 +72,19 @@ class Registers64(Enum):
     r9 = Register64("r9")
 
 
-def get_registers(mode: str) -> Union[Register16, Register32, Registers64]:
+def get_registers(mode: str) -> Register16 | Register32 | Registers64:
     if mode == "16":
         return Registers16
-    elif mode == "32":
+    if mode == "32":
         return Registers32
-    elif mode == "64":
+    if mode == "64":
         return Registers64
 
 
 class ByteRegister(BaseRegister):
     def __init__(self, *args):
         args = [str(arg.value) if isinstance(arg, Enum) else str(arg) for arg in args]
-        self._name = f"byte [{' + '.join(args)}]"
+        self._name = f'byte [{" + ".join(args)}]'
 
     def __str__(self):
         return self._name

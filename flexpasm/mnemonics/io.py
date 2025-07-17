@@ -22,7 +22,7 @@ class IntMnemonic(_DefaultMnemonic):
     def generate(self, indentation: str = ""):
         msg = f"INT {self.interrupt_number}"
         Highlighter.highlight(f"{msg.ljust(MAX_MESSAGE_LENGTH)}; {self.comment()}")
-        return f"{indentation}{f'INT {str(self.interrupt_number)}'.ljust(MAX_MESSAGE_LENGTH)}; {self.comment()}"
+        return f'{indentation}{f"INT {self.interrupt_number!s}".ljust(MAX_MESSAGE_LENGTH)}; {self.comment()}'
 
     def comment(self) -> str:
         return (

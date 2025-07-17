@@ -31,7 +31,7 @@ class Syscall:
 
         instructions.append(f"{indentation}syscall")
 
-        return f"\n{'\n'.join(instructions)}"
+        return f'\n{"\n".join(instructions)}'
 
     @staticmethod
     def exit(code: int, indentation_level: int = 0, mode: str = "64"):

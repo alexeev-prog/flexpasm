@@ -1,3 +1,27 @@
+commit 1f769c0d34bf0caec344bb3ae201fe0d4b798910
+Author: Alexeev Bronislav <alexeev.dev@mail.ru>
+Date:   Wed Apr 9 21:36:03 2025 +0700
+
+    modify pyproject
+
+commit 4f295c8d998db025262fe02a0eb7f4be45d8d9e5
+Author: Alexeev Bronislav <alexeev.dev@mail.ru>
+Date:   Sun Mar 9 14:01:19 2025 +0700
+
+    fix bugs
+
+commit 8ec364d0c54d6e385c0874fe0b776e052054c9a9
+Author: alexeev-prog <alexeev.dev@mail.ru>
+Date:   Sun Dec 8 23:20:36 2024 +0700
+
+    feat/fix: fix mnemonics bugs and add more mnemonics, add builder, add macros
+
+commit 7eba7bd1bc9295c28dfc8a416cbc544d941d9991
+Author: alexeev-prog <alexeev.dev@mail.ru>
+Date:   Sun Dec 8 19:51:24 2024 +0700
+
+    feat: add new mnemonics
+
 commit 08e5ef834514d5846586893f6ebe1506afa52cf2
 Author: alexeev-prog <alexeev.dev@mail.ru>
 Date:   Sun Dec 8 18:45:27 2024 +0700

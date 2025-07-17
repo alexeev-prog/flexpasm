@@ -102,11 +102,11 @@ class ASMProgram:
 
         print(f"Create {elf_format} Program: {self.settings.title}")
 
-        return f"""{";" * 120}
-{author}{" " * (118 - len(author))};;
-{title}{" " * (118 - len(title))};;
-{end}{" " * (118 - len(end))};;
-{";" * 120}
+        return f"""{';' * 120}
+{author}{' ' * (118 - len(author))};;
+{title}{' ' * (118 - len(title))};;
+{end}{' ' * (118 - len(end))};;
+{';' * 120}
 
 {format_code.ljust(MAX_MESSAGE_LENGTH)}; {elf_format} EXECUTABLE
 {entry_code.ljust(MAX_MESSAGE_LENGTH)}; Set Start Entry"""

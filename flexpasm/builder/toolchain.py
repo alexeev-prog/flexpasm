@@ -1,5 +1,4 @@
 from dataclasses import dataclass, field
-from typing import List
 
 
 @dataclass
@@ -28,4 +27,4 @@ class FileChain:
     compiler: Compiler
     linker: Linker
     skip_linker: bool = True
-    files: List[File] = field(default_factory=list)
+    files: list[File] = field(default_factory=list)

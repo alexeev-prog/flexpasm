@@ -146,13 +146,12 @@ class ReadableExecutableSegment(BaseSegment):
 
         if label not in self.labels:
             raise ValueError(f'Label "{label}" not found')
-        else:
-            self.labels[label] += f"\n{indentation}{command}"
+        self.labels[label] += f"\n{indentation}{command}"
 
     def generate(self) -> str:
         for label, commands in self.labels.items():
             self._code.append(
-                f"{f'{label.entry}:'.ljust(MAX_MESSAGE_LENGTH)}; {label.comment()}"
+                f'{f"{label.entry}:".ljust(MAX_MESSAGE_LENGTH)}; {label.comment()}'
             )
             self._code.append(f"{commands}")
 

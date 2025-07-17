@@ -1,5 +1,3 @@
-from typing import Union
-
 from flexpasm.base import BaseRegister
 from flexpasm.constants import MAX_MESSAGE_LENGTH
 from flexpasm.mnemonics.base import _DefaultMnemonic
@@ -14,11 +12,11 @@ class MovMnemonic(_DefaultMnemonic):
     the source and places that content into the destination.
     """
 
-    def __init__(self, dest: BaseRegister, source: Union[BaseRegister, str, int]):
+    def __init__(self, dest: BaseRegister, source: BaseRegister | str | int):
         super().__init__("MOV", dest, source)
 
     def comment(self) -> str:
-        return f"Loading {str(self.source)} value into {str(self.dest)} register."
+        return f"Loading {self.source!s} value into {self.dest!s} register."
 
 
 class PushaMnemonic(_DefaultMnemonic):
@@ -69,7 +67,7 @@ class PopMnemonic(_DefaultMnemonic):
         return f"{indentation}{msg.ljust(MAX_MESSAGE_LENGTH)}; {self.comment()}"
 
     def comment(self) -> str:
-        return f"Popping {str(self.source)} from the stack"
+        return f"Popping {self.source!s} from the stack"
 
 
 class PushMnemonic(_DefaultMnemonic):
@@ -86,7 +84,7 @@ class PushMnemonic(_DefaultMnemonic):
         return f"{indentation}{msg.ljust(MAX_MESSAGE_LENGTH)}; {self.comment()}"
 
     def comment(self) -> str:
-        return f"Pushing {str(self.source)} into the stack"
+        return f"Pushing {self.source!s} into the stack"
 
 
 class XchgMnemonic(_DefaultMnemonic):
@@ -94,11 +92,11 @@ class XchgMnemonic(_DefaultMnemonic):
     XCHG in assembly language is a mnemonic: Exchange of values between cells (registers)
     """
 
-    def __init__(self, dest: BaseRegister, source: Union[BaseRegister, str, int]):
+    def __init__(self, dest: BaseRegister, source: BaseRegister | str | int):
         super().__init__("XCHG", dest, source)
 
     def comment(self) -> str:
-        return f"Exchange values between {str(self.source)} and {str(self.dest)} registers."
+        return f"Exchange values between {self.source!s} and {self.dest!s} registers."
 
 
 class SwapMnemonic(_DefaultMnemonic):

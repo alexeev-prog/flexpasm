@@ -6,7 +6,7 @@ class FlexPasmException(Exception):
             self.message = None
 
     def get_explanation(self) -> str:
-        return f"Message: {self.message if self.message else 'missing'}"
+        return f'Message: {self.message if self.message else "missing"}'
 
     def __str__(self):
         return f"FlexPasmException has been raised. {self.get_explanation()}"
@@ -14,4 +14,4 @@ class FlexPasmException(Exception):
 
 class MacroNotFound(FlexPasmException):
     def get_explanation(self) -> str:
-        return f"Macro-function not found. Message: {self.message if self.message else 'missing'}"
+        return f'Macro-function not found. Message: {self.message if self.message else "missing"}'

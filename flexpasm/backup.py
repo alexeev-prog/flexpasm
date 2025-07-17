@@ -33,13 +33,13 @@ class BackupManager:
             json.dump(backups, write_file)
 
     def _resave_file(self, filename: str):
-        with open(os.path.join(self.settings.backup_directory, filename), "r") as file:
+        with open(os.path.join(self.settings.backup_directory, filename)) as file:
             with open(self.settings.filename, "w") as file2:
                 file2.write(file.read())
 
     def _load_from_json(self):
         try:
-            with open(".flexpasm_backups.json", "r") as read_file:
+            with open(".flexpasm_backups.json") as read_file:
                 data = json.load(read_file)
         except (FileNotFoundError, OSError):
             return False
@@ -75,7 +75,7 @@ class BackupManager:
                     continue
                 else:
                     print(f"SUCCESS Restore Backup_{num}: {filename}")
-                    return
+                    return None
 
         print(f"Failed to restore file {self.settings.filename}")
 
